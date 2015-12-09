@@ -1,0 +1,124 @@
+.boxy-wrapper { position: absolute; }
+.boxy-wrapper.fixed { position: fixed; }
+
+  /* Modal */
+  
+  .boxy-modal-blackout { position: absolute; background-color: black; left: 0; top: 0; }
+  
+  /* Border */
+
+  .boxy-wrapper { empty-cells: show; }
+	.boxy-wrapper .boxy-top-left,
+	.boxy-wrapper .boxy-top-right,
+	.boxy-wrapper .boxy-bottom-right,
+	.boxy-wrapper .boxy-bottom-left { width: 10px; height: 10px; background-color: black; opacity: 0.3; filter: alpha(opacity=30); padding: 0 }
+	
+	.boxy-wrapper .boxy-top,
+	.boxy-wrapper .boxy-bottom { height: 10px; background-color: black; opacity: 0.3; filter: alpha(opacity=30); padding: 0 }
+	
+	.boxy-wrapper .boxy-left,
+	.boxy-wrapper .boxy-right { width: 10px; background-color: black; opacity: 0.3; filter: alpha(opacity=30); padding: 0 }
+	
+	/* Title bar */
+	
+	.boxy-wrapper .title-bar { background-color: #333; padding: 6px 10px; position: relative; }
+	  .boxy-wrapper .title-bar.dragging { cursor: move; }
+	    .boxy-wrapper .title-bar h2 { font-size: 14px; color: white; height:20px; line-height:20px; margin: 0; padding: 0; }
+	    .boxy-wrapper .title-bar .close { color: white; position: absolute; top: 6px; right: 10px; }
+		
+	/* Content Region */
+	
+	.boxy-inner { overflow: hidden; background-color: white; padding: 0 }
+	.boxy-content { padding: 15px; }
+	
+	/* Question Boxes */
+
+    .boxy-wrapper .question { width: 350px; min-height: 80px; }
+    .boxy-wrapper .answers { text-align: right; }
+    .boxy-wrapper .answers button {
+	    display:inline-block;
+		margin-left:10px;
+		padding:0 10px;
+		line-height: 20px;
+		text-align: center;
+		font-size: 12px;
+		border: #4e81b8 solid 1px;
+		background-color: #6291c7;
+		color: #fff;
+    }
+    .boxy-wrapper .answers button:hover {
+		background-color:#4e81b8;
+	}
+
+.boxy-wrapper .form-error * {
+	font-size:14px;
+	color:red;
+	line-height:180%;
+}
+.boxy-wrapper .form-error label {
+	font-weight:bold;
+	color:#333;
+}
+
+
+.boxy-wrapper .login {
+	width: 380px;
+	padding-top:30px;
+}
+.boxy-wrapper .login .sep {
+	margin:0 15px;
+}
+.boxy-wrapper .login form p {
+	height:31px;
+	line-height:31px;
+	margin-bottom:15px;
+}
+.boxy-wrapper .login form p label {
+	display:block;
+	float:left;
+	width:60px;
+	font-size:14px;
+	text-align:right;
+	margin-right:20px;
+	font-family:Microsoft Yahei;
+}
+.boxy-wrapper .login form p input[type=text],
+.boxy-wrapper .login form p input[type=password] {
+	display:inline-block;
+	width:200px;
+	height:25px;
+	line-height:25px;
+	margin-right:10px;
+	font-family:Microsoft Yahei;
+	font-size:14px;
+}
+.boxy-wrapper .login form p button {
+	display:inline-block;
+	margin-left:80px;
+	width: 100px;
+	line-height: 28px;
+	text-align: center;
+	font-size: 14px;
+	border: #4e81b8 solid 1px;
+	background-color: #6291c7;
+	color: #fff;
+	font-family:Microsoft Yahei;
+}
+.boxy-wrapper .login form p button:hover {
+	background-color:#4e81b8;
+}
+.boxy-wrapper .login .connects {
+	margin-bottom:0;
+}
+.boxy-wrapper .login .connect {
+	margin:0;
+	float:left;
+	margin-right:10px;
+	margin-top:3px;
+	background:url(/images/qq-login-63.png);
+	width:63px;
+}
+.boxy-wrapper .login .connect-qq {background:url(/images/qq-login-63.png);}
+.boxy-wrapper .login .connect-weibo {background:url(/images/weibo-login-63.png);}
+.boxy-wrapper .login .connect-douban {background:url(/images/douban-login-63.png);}
+
