@@ -1,0 +1,16 @@
+部署文档
+
+==============
+= CentOS 系统 =
+==============
+yum install setuptools MySQL-python python-imaging uwsgi-plugin-python
+easy_install django==1.4.22
+easy_install http://files.vchuzhou.com/jiango-last-py2.6.egg
+
+============
+= 初始化网站 =
+============
+python manage.py collectstatic
+python manage.py syncdb
+python manage.py admin_syncperms
+python manage.py admin_createuser
