@@ -1,10 +1,16 @@
+PROJECT_DIR=/data/www
+USER=nobody
+PROCESSES=1
+SOCK=$PROJECT_DIR/var/uwsgi.sock
+
+chown $USER $PROJECT_DIR
+
 uwsgi \
---plugin python \
---chdir /data/www/ \
+--chdir $PROJECT_DIR \
 --module=webapp.wsgi:application \
---master --pidfile=var/uwsgi.pid \
---processes=4 --enable-threads \
+--master --pidfile=$PROJECT_DIR/var/uwsgi.pid \
+--processes=$PROCESSES --enable-threads \
 --disable-logging \
---daemonize=var/uwsgi.log \
---socket=/tmp/uwsgi-www.sock \
---uid nobody
+--daemonize=$PROJECT_DIR/var/uwsgi.log \
+--socket=$SOCK \
+--uid $USER
