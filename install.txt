@@ -23,13 +23,19 @@ $ pip install *.whl
 如果采用 uwsgi 管理服务进程则需要安装 uwsgi
 ======================================
 $ pip install uwsgi
-并修改 start.sh 文件中的相关目录配置
 
 
 
 初始化网站
 =========
-python manage.py collectstatic
-python manage.py syncdb
-python manage.py admin_syncperms
-python manage.py admin_createuser
+$ chmod +x bin/*.sh
+$ python manage.py collectstatic
+$ python manage.py syncdb
+$ python manage.py admin_syncperms
+$ python manage.py admin_createuser
+
+
+
+启动项目
+=======
+$ bin/uwsgi.sh start
