@@ -20,6 +20,7 @@ case $1 in
 		echo "Start uWSGI"
 		
 		uwsgi \
+			--need-plugin python \
 			--chdir $PROJDIR \
 			--module=webapp.wsgi:application \
 			--master --pidfile=$PIDFILE \
