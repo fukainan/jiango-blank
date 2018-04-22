@@ -4,7 +4,7 @@ Created on 2017/1/20
 @author: Fei Ye <316606233@qq.com>
 """
 from django.db import models
-from django.utils.encoding import smart_str, smart_unicode
+from django.utils.encoding import smart_str
 from django.core.cache import cache
 from django.conf import settings
 from jiango.shortcuts import get_object_or_none
@@ -14,9 +14,8 @@ CACHE_KEY_PREFIX = 'CONFIGURATION_ITEM:'
 
 
 TYPE_STR = 1
-TYPE_UNICODE = 2
-TYPE_INT = 3
-TYPE_FLOAT = 4
+TYPE_INT = 2
+TYPE_FLOAT = 3
 
 
 class Item(models.Model):
@@ -29,8 +28,6 @@ class Item(models.Model):
 def get_value_type(value):
     if isinstance(value, str):
         return TYPE_STR
-    if isinstance(value, unicode):
-        return TYPE_UNICODE
     if isinstance(value, int):
         return TYPE_INT
     if isinstance(value, float):
@@ -58,8 +55,6 @@ def get_config_value(key):
     if obj:
         if obj.type == TYPE_STR:
             value = smart_str(obj.value)
-        elif obj.type == TYPE_UNICODE:
-            value = smart_unicode(obj.value)
         elif obj.type == TYPE_INT:
             value = int(obj.value)
         elif obj.type == TYPE_FLOAT:
