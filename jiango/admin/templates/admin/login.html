@@ -1,12 +1,12 @@
 {% extends 'admin/layout.html' %}
-{% load bootstrap  %}
+{% load bootstrap %}
 {% load staticfiles %}
 
 {% block body %}
     <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{% url admin:-index %}">{{ site_full_name|safe }}</a>
+            <a href="{% url 'admin:-index' %}">{{ site_full_name|safe }}</a>
         </div>
         <div class="login-box-body">
             {% for non_field_error in form.non_field_errors %}
@@ -39,19 +39,19 @@
     </div>
 
     {% if client_password_encrypt %}
-    <script src="{% static 'admin/js/md5.js' %}"></script>
-    <script type="text/javascript">
-    <!--
-    $('#login-form').submit(function(e){
-        var salt = $(this).find('input[name=salt]').val();
-        var SECRET_KEY = '{{secret_key}}';
-        $.each($(this).find('input[type=password]'), function(){
-            var self = $(this);
-            self.val(MD5(salt + MD5(MD5(self.val())+SECRET_KEY)));
-        });
-    });
-    //-->
-    </script>
+        <script src="{% static 'admin/js/md5.js' %}"></script>
+        <script type="text/javascript">
+            <!--
+            $('#login-form').submit(function (e) {
+                var salt = $(this).find('input[name=salt]').val();
+                var SECRET_KEY = '{{secret_key}}';
+                $.each($(this).find('input[type=password]'), function () {
+                    var self = $(this);
+                    self.val(MD5(salt + MD5(MD5(self.val()) + SECRET_KEY)));
+                });
+            });
+            //-->
+        </script>
     {% endif %}
 
     </body>

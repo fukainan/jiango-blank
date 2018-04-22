@@ -1,15 +1,15 @@
 {% extends 'admin/layout.html' %}
-{% load bootstrap  %}
+{% load bootstrap %}
 {% load staticfiles %}
 
 {% block body %}
     <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="{% url admin:-index %}">你已经成功<b>退出</b></a>
+            <a href="{% url 'admin:-index' %}">你已经成功<b>退出</b></a>
         </div>
         <div class="login-box-body">
-            <a href="{% url admin:-login %}" class="btn btn-primary btn-block">重新登陆</a>
+            <a href="{% url 'admin:-login' %}" class="btn btn-primary btn-block">重新登陆</a>
         </div>
     </div>
     </body>

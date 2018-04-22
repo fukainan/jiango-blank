@@ -11,9 +11,9 @@
 
 <section class="content">
     <div class="callout callout-danger">
-        <p>{{message|linebreaksbr}}</p>
+        <p>{{ message|linebreaksbr }}</p>
     </div>
     {% for name,link in buttons.items %}
-		<a href="{{link}}" class="btn btn-default">{{name}}</a>
-	{% endfor %}
+        <a href="{{ link }}" class="btn btn-default">{{ name }}</a>
+    {% endfor %}
 </section>
