@@ -171,14 +171,14 @@ class ModelLogger(object):
 
     @staticmethod
     def get_instance_values(instance):
-        return [(f.attname, unicode(getattr(instance, f.attname))) for f in instance._meta.local_fields]
+        return [(f.attname, str(getattr(instance, f.attname))) for f in instance._meta.local_fields]
     
     def diff_values(self, new_instance):
         if not self.instance_values:
             return False
         diff_values = []
         for attname, orig_value in self.instance_values:
-            new_value = unicode(getattr(new_instance, attname))
+            new_value = str(getattr(new_instance, attname))
             if new_value != orig_value:
                 diff_values.append((attname, orig_value, new_value))
         return diff_values

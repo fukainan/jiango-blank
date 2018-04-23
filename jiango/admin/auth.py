@@ -7,7 +7,7 @@ from uuid import uuid4
 from functools import wraps
 from django.utils.http import urlquote
 from django.utils import timezone
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponseRedirect
 from jiango.shortcuts import update_instance
 from jiango.api import LoginRequired
@@ -16,16 +16,16 @@ from .config import COOKIE_NAME, AUTH_SLAT_TIMEOUT, REQUEST_ADMIN_FIELD, LOGIN_N
 
 
 def auth_token_password(user):
-    return hashlib.md5(':'.join((user.login_token, user.password_digest, SECRET_KEY_DIGEST))).hexdigest()
+    return hashlib.md5(':'.join((user.login_token, user.password_digest, SECRET_KEY_DIGEST)).encode('utf8')).hexdigest()
 
 
 def get_temp_salt_verify(salt, salt_time):
-    return hashlib.md5(salt + str(salt_time) + SECRET_KEY_DIGEST).hexdigest()
+    return hashlib.md5(''.join((salt, str(salt_time), SECRET_KEY_DIGEST)).encode('utf8')).hexdigest()
 
 
 # 生成一个临时效验密匙
 def get_temp_salt():
-    salt = hashlib.md5(str(uuid4())).hexdigest()
+    salt = hashlib.md5(str(uuid4()).encode('utf8')).hexdigest()
     salt_time = str(int(time()))
     return salt + get_temp_salt_verify(salt, salt_time) + salt_time
 
@@ -57,7 +57,7 @@ def get_user_from_auth_token(value):
 def set_login(user):
     update_instance(user,
                     login_at=timezone.now(),
-                    login_token=hashlib.md5(str(uuid4())).hexdigest(),
+                    login_token=hashlib.md5(str(uuid4()).encode('utf8')).hexdigest(),
                     login_fails=0)
 
 
@@ -95,6 +95,7 @@ def login_required(view_func):
         if get_request_user(request):
             return view_func(request, *args, **kwargs)
         return login_redirect(request)
+
     return wrapper
 
 
@@ -104,6 +105,7 @@ def api_login_required(view_func):
         if get_request_user(request):
             return view_func(request, *args, **kwargs)
         raise LoginRequired()
+
     return wrapper
 
 
@@ -117,4 +119,5 @@ def logout_required(view_func):
         if not get_request_user(request):
             return view_func(request, *args, **kwargs)
         return logout_redirect(request)
+
     return wrapper

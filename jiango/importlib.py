@@ -3,7 +3,7 @@
 # @author: Yefei
 import imp
 import os
-from django.utils.importlib import import_module
+from importlib import import_module
 
 
 def autodiscover_installed_apps(module_name, recursion_package=False):

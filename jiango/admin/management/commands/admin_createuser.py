@@ -21,7 +21,7 @@ class Command(BaseCommand):
             # Get a username
             while username is None:
                 if not username:
-                    raw_value = raw_input('Username: ')
+                    raw_value = input('Username: ')
                 
                 try:
                     username = username_field.clean(raw_value, None)

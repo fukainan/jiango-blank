@@ -5,7 +5,7 @@ import hashlib
 from django.conf import settings
 
 
-SECRET_KEY_DIGEST = hashlib.md5(settings.SECRET_KEY).hexdigest()
+SECRET_KEY_DIGEST = hashlib.md5(settings.SECRET_KEY.encode('utf8')).hexdigest()
 
 # 身份验证 cookie 名称
 COOKIE_NAME = getattr(settings, 'ADMIN_COOKIE_NAME', 'jiango_admin_auth')

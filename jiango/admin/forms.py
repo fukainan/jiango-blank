@@ -10,7 +10,7 @@ from .config import AUTH_SLAT_TIMEOUT, LOGIN_MAX_FAILS, SECRET_KEY_DIGEST
 
 
 def md5str(s):
-    return hashlib.md5(s).hexdigest()
+    return hashlib.md5(s.encode('utf8')).hexdigest()
 
 
 class AuthenticationForm(forms.Form):
@@ -125,6 +125,7 @@ class SetPasswordForm(forms.Form):
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
+        fields = '__all__'
         widgets = {'groups': FilteredSelectMultiple(u'用户组'),
                    'permissions': FilteredSelectMultiple(u'权限')}
 
@@ -132,4 +133,5 @@ class UserForm(forms.ModelForm):
 class GroupForm(forms.ModelForm):
     class Meta:
         model = Group
+        fields = '__all__'
         widgets = {'permissions': FilteredSelectMultiple(u'权限')}

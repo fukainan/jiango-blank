@@ -5,7 +5,7 @@ from __future__ import absolute_import
 import json
 import datetime
 from django.db.models import Model
-from django.db.models.query import QuerySet, ValuesQuerySet
+from django.db.models.query import QuerySet
 from django.core.serializers.json import DjangoJSONEncoder
 from .python import QuerySetSerializer
 
@@ -25,9 +25,6 @@ class JSONEncoder(DjangoJSONEncoder):
             if r.endswith('+00:00'):
                 r = r[:-6] + 'Z'
             return r
-
-        if isinstance(o, ValuesQuerySet):
-            return list(o)
         
         if isinstance(o, QuerySet):
             return QuerySetSerializer().serialize(o)
@@ -46,6 +43,6 @@ def serialize(obj, stream=None, **options):
 
 
 def deserialize(stream_or_string, **options):
-    if isinstance(stream_or_string, basestring):
+    if isinstance(stream_or_string, str):
         return json.loads(stream_or_string, **options)
     return json.load(stream_or_string, **options)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Created on 2015-9-2
 # @author: Yefei
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.http import HttpResponseRedirect
 from django.utils.crypto import get_random_string
 from django.shortcuts import redirect
@@ -39,7 +39,7 @@ def login(request, response):
             if not user.is_active:
                 log(request, log.WARNING, u'用户 %s 认证成功，由于账户已被停用而被禁止登陆' % user.username, log.LOGIN, user=user)
                 raise Alert(Alert.ERROR, u'您的帐号已经被停用')
-            next_url = request.REQUEST.get(LOGIN_NEXT_FIELD, reverse('admin:-index'))
+            next_url = request.POST.get(LOGIN_NEXT_FIELD, reverse('admin:-index'))
             resp = HttpResponseRedirect(next_url)
             set_login(user)
             set_login_cookie(resp, user)

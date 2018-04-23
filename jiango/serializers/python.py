@@ -2,12 +2,12 @@
 # Created on 2015-9-26
 # @author: Yefei
 from django.core.serializers.python import Serializer
-from django.utils.encoding import smart_unicode
+from django.utils.encoding import smart_text
 
 
 class QuerySetSerializer(Serializer):
     def end_object(self, obj):
-        self._current['id'] = smart_unicode(obj._get_pk_val(), strings_only=True)
+        self._current['id'] = smart_text(obj._get_pk_val(), strings_only=True)
         self.objects.append(self._current)
         self._current = None
     

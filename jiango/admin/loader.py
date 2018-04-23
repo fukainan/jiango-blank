@@ -4,8 +4,8 @@
 from inspect import isfunction
 from django.conf.urls import url, include
 from django.utils.text import capfirst
-from django.utils.datastructures import SortedDict
-from django.core.urlresolvers import reverse, resolve
+from collections import OrderedDict
+from django.urls import reverse, resolve
 from jiango.importlib import autodiscover_installed_apps
 from . import views
 
@@ -13,7 +13,7 @@ from . import views
 # A flag to tell us if autodiscover is running.  autodiscover will set this to
 # True while running, and False when it finishes.
 LOADING = False
-loaded_modules = SortedDict()
+loaded_modules = OrderedDict()
 
 
 def autodiscover(module_name):
@@ -71,7 +71,7 @@ def _get_sub_menus(current_view_name, sub_menus):
 def get_navigation(request):
     navigation = []
     current_view_name = resolve(request.path).view_name
-    for module, app_name in loaded_modules.iteritems():
+    for module, app_name in loaded_modules.items():
         icon = getattr(module, 'icon', None)
         icon = icon(request) if isfunction(icon) else icon
 
@@ -101,7 +101,7 @@ def get_navigation(request):
 
 
 def get_app_verbose_name(app_name):
-    for module, _app_name in loaded_modules.iteritems():
+    for module, _app_name in loaded_modules.items():
         if app_name == _app_name:
             verbose_name = getattr(module, 'verbose_name', capfirst(app_name))
             if isfunction(verbose_name):
@@ -112,6 +112,6 @@ def get_app_verbose_name(app_name):
 
 def admin_urls(module_name='admin'):
     autodiscover(module_name)
-    for module, app_name in loaded_modules.iteritems():
-        urlpatterns.append(url(r'^%s' % app_name, include(module.urlpatterns, app_name)))
-    return include(urlpatterns, 'admin')
+    for module, app_name in loaded_modules.items():
+        urlpatterns.append(url(r'^%s' % app_name, include((module.urlpatterns, app_name))))
+    return include((urlpatterns, 'admin'))

@@ -44,7 +44,7 @@ def api(func_or_path=None, name=None):
         return func
     
     # @api() 带参数
-    if func_or_path is None or isinstance(func_or_path, basestring):
+    if func_or_path is None or isinstance(func_or_path, str):
         return wrapper
     
     # @api 不带参数
@@ -68,7 +68,7 @@ def register_loaded_api_urls(module, namesapces, output_format, exception_func):
 def api_urls(namespace='api', module_name='api', output_format=None, exception_func=None):
     autodiscover(module_name)
     urlpatterns = []
-    for module, namesapces in loaded_modules.iteritems():
+    for module, namesapces in loaded_modules.items():
         urlpatterns.extend(register_loaded_api_urls(module, namesapces, output_format, exception_func))
     return include(urlpatterns, namespace)
 

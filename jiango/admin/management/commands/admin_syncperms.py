@@ -3,9 +3,9 @@
 # @author: Yefei
 from inspect import isfunction
 from django.core.management.base import BaseCommand
-from django.utils.importlib import import_module
+from importlib import import_module
 from django.utils.text import capfirst
-from django.utils.datastructures import SortedDict
+from collections import OrderedDict
 from jiango.admin.models import Permission
 from jiango.admin.config import ADMIN_PERMISSIONS
 
@@ -20,7 +20,7 @@ class Command(BaseCommand):
         
         from jiango.admin.loader import loaded_modules
         
-        perms = SortedDict([('admin.' + codename, u'管理系统|' + name) for codename, name in ADMIN_PERMISSIONS.items()])
+        perms = OrderedDict([('admin.' + codename, u'管理系统|' + name) for codename, name in ADMIN_PERMISSIONS.items()])
         
         for module, app_label in loaded_modules.items():
             app_perms = getattr(module, 'PERMISSIONS', {})
@@ -44,7 +44,7 @@ class Command(BaseCommand):
             else:
                 # 删除询问
                 while 1:
-                    raw_value = raw_input(i.codename + ': Has not been used to delete? (y/n)')
+                    raw_value = input(i.codename + ': Has not been used to delete? (y/n)')
                     if raw_value.lower() == 'y':
                         i.delete()
                         break

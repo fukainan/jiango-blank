@@ -35,8 +35,8 @@ def render(func, exception_func=None):
             if mimetype in mimetypes and request.body:
                 try:
                     request.value = deserialize(mimetypes[mimetype], request.body)
-                except Exception, e:
-                    raise APIError(e.message)
+                except Exception as e:
+                    raise APIError(str(e))
 
             value = func(request, response, *args, **kwargs)
 
