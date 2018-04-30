@@ -20,7 +20,7 @@ class Command(BaseCommand):
         def _foreach_urls(urllist, depth=0, ns_depth=0):
             
             for entry in urllist:
-                url = '  ' * depth + entry.regex.pattern
+                url = '  ' * depth + entry.pattern.regex.pattern
                 self._max_url_len = max(len(url), self._max_url_len)
                 
                 name = ''
