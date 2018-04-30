@@ -2,13 +2,12 @@
 # Created on 2015-9-1
 # @author: Yefei
 from inspect import isfunction
-from django.conf.urls import url, include
+from django.urls import path, include
 from django.utils.text import capfirst
 from collections import OrderedDict
 from django.urls import reverse, resolve
 from jiango.importlib import autodiscover_installed_apps
 from . import views
-
 
 # A flag to tell us if autodiscover is running.  autodiscover will set this to
 # True while running, and False when it finishes.
@@ -29,26 +28,26 @@ def autodiscover(module_name):
 
 
 urlpatterns = [
-    url(r'^$', views.index, name='-index'),
-    url(r'^-/login$', views.login, name='-login'),
-    url(r'^-/logout$', views.logout, name='-logout'),
-    url(r'^-/password$', views.set_password, name='-password'),
-    
-    url(r'^-/log$', views.log_list, name='-log'),
-    url(r'^-/log/(?P<log_id>\d+)$', views.log_show, name='-log-show'),
-    
-    url(r'^-/user$', views.user_list, name='-user'),
-    url(r'^-/user/add$', views.user_edit, name='-user-add'),
-    url(r'^-/user/(?P<user_id>\d+)$', views.user_show, name='-user-show'),
-    url(r'^-/user/(?P<user_id>\d+)/edit$', views.user_edit, name='-user-edit'),
-    url(r'^-/user/(?P<user_id>\d+)/password$', views.set_password, name='-user-password'),
-    url(r'^-/user/(?P<user_id>\d+)/delete$', views.user_delete, name='-user-delete'),
-    
-    url(r'^-/group$', views.group_list, name='-group'),
-    url(r'^-/group/add$', views.group_edit, name='-group-add'),
-    url(r'^-/group/(?P<group_id>\d+)$', views.group_show, name='-group-show'),
-    url(r'^-/group/(?P<group_id>\d+)/edit$', views.group_edit, name='-group-edit'),
-    url(r'^-/group/(?P<group_id>\d+)/delete$', views.group_delete, name='-group-delete'),
+    path('', views.index, name='-index'),
+    path('-/login', views.login, name='-login'),
+    path('-/logout', views.logout, name='-logout'),
+    path('-/password', views.set_password, name='-password'),
+
+    path('-/log', views.log_list, name='-log'),
+    path('-/log/<int:log_id>', views.log_show, name='-log-show'),
+
+    path('-/user', views.user_list, name='-user'),
+    path('-/user/add', views.user_edit, name='-user-add'),
+    path('-/user/<int:user_id>', views.user_show, name='-user-show'),
+    path('-/user/<int:user_id>/edit', views.user_edit, name='-user-edit'),
+    path('-/user/<int:user_id>/password', views.set_password, name='-user-password'),
+    path('-/user/<int:user_id>/delete', views.user_delete, name='-user-delete'),
+
+    path('-/group', views.group_list, name='-group'),
+    path('-/group/add', views.group_edit, name='-group-add'),
+    path('-/group/<int:group_id>', views.group_show, name='-group-show'),
+    path('-/group/<int:group_id>/edit', views.group_edit, name='-group-edit'),
+    path('-/group/<int:group_id>/delete', views.group_delete, name='-group-delete'),
 ]
 
 system_sub_menus = [
@@ -113,5 +112,5 @@ def get_app_verbose_name(app_name):
 def admin_urls(module_name='admin'):
     autodiscover(module_name)
     for module, app_name in loaded_modules.items():
-        urlpatterns.append(url(r'^%s' % app_name, include((module.urlpatterns, app_name))))
+        urlpatterns.append(path('%s' % app_name, include((module.urlpatterns, app_name))))
     return include((urlpatterns, 'admin'))
