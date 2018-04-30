@@ -13,9 +13,9 @@ from webapp import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('admin/', admin_urls()),
-    #    url(r'^api/captcha/', include('jiango.captcha.urls')),
-    #    url(r'^api/', api_urls()),
-    #    *cms_urls,
+    # path('api/captcha/', include('jiango.captcha.urls')),
+    # path('api/', api_urls()),
+    # *cms_urls,
 ]
 
 if settings.DEBUG:
