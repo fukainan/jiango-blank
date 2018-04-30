@@ -10,9 +10,9 @@ class QuerySetSerializer(Serializer):
         self._current['id'] = smart_text(obj._get_pk_val(), strings_only=True)
         self.objects.append(self._current)
         self._current = None
-    
+
     def handle_fk_field(self, obj, field):
-        if self.use_natural_keys and hasattr(field.rel.to, 'natural_key'):
+        if self.use_natural_foreign_keys and hasattr(field.rel.to, 'natural_key'):
             related = getattr(obj, field.name)
             if related:
                 value = related.natural_key()

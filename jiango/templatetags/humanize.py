@@ -4,7 +4,6 @@
 from django import template
 from jiango.utils.humanize import humanize_second, humanize_size
 
-
 register = template.Library()
 register.filter('humanizesecond', humanize_second, is_safe=True)
 
@@ -26,7 +25,7 @@ def filesize(value):
     size, unit = humanize_size(int(value))
     if unit is None:
         return size
-    return '%.2f %sB' %(size, unit)
+    return '%.2f %sB' % (size, unit)
 
 
 @register.filter(is_safe=True)
